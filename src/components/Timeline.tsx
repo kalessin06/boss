@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import ScrollReveal from "./ScrollReveal";
 
 const timelineEvents = [
     {
@@ -71,7 +72,7 @@ export default function Timeline() {
 
             <div className="max-w-5xl mx-auto relative z-10 px-4">
                 {/* Section Title */}
-                <div className="text-center mb-16">
+                <ScrollReveal width="100%" className="text-center mb-16">
                     <h2 className="font-heading text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
                         <span className="text-white">Le </span>
                         <span className="gold-text animated-underline">Programme</span>
@@ -80,67 +81,73 @@ export default function Timeline() {
                     <p className="font-body text-white/70 text-lg max-w-2xl mx-auto">
                         Une montée en puissance orchestrée tableau par tableau
                     </p>
-                </div>
+                </ScrollReveal>
 
                 {/* Timeline */}
                 <div className="relative">
                     {timelineEvents.map((event, index) => (
-                        <div
+                        <ScrollReveal
                             key={event.time}
-                            className={`flex flex-col md:flex-row items-center gap-8 mb-24 last:mb-0 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                                }`}
+                            width="100%"
+                            delay={index * 0.1}
+                            animation={index % 2 === 0 ? "slide-right" : "slide-left"}
                         >
-                            {/* Image Section (if exists) or Time Badge */}
-                            <div className="w-full md:w-1/2 flex justify-center md:justify-end">
-                                {event.image ? (
-                                    <div className={`relative w-full max-w-md aspect-video rounded-xl overflow-hidden border border-[#D4AF37]/30 shadow-2xl group`}>
-                                        <Image
-                                            src={event.image}
-                                            alt={event.title}
-                                            fill
-                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                        />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                                        <div className="absolute bottom-4 left-4">
-                                            <span className="inline-block px-3 py-1 bg-[#D4AF37] text-black font-bold text-sm rounded-full mb-2">
-                                                {event.time}
-                                            </span>
+                            <div
+                                className={`flex flex-col md:flex-row items-center gap-8 mb-24 last:mb-0 ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                                    }`}
+                            >
+                                {/* Image Section (if exists) or Time Badge */}
+                                <div className="w-full md:w-1/2 flex justify-center md:justify-end">
+                                    {event.image ? (
+                                        <div className={`relative w-full max-w-md aspect-video rounded-xl overflow-hidden border border-[#D4AF37]/30 shadow-2xl group`}>
+                                            <Image
+                                                src={event.image}
+                                                alt={event.title}
+                                                fill
+                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                            <div className="absolute bottom-4 left-4">
+                                                <span className="inline-block px-3 py-1 bg-[#D4AF37] text-black font-bold text-sm rounded-full mb-2">
+                                                    {event.time}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                ) : (
-                                    <div className={`text-center flex justify-center w-full`}>
-                                        {/* Empty graphical placeholder or just alignment spacer if needed */}
-                                    </div>
-                                )}
-                            </div>
+                                    ) : (
+                                        <div className={`text-center flex justify-center w-full`}>
+                                            {/* Empty graphical placeholder or just alignment spacer if needed */}
+                                        </div>
+                                    )}
+                                </div>
 
-                            {/* Connector (Center) */}
-                            <div className="hidden md:flex flex-col items-center justify-center relative w-12 z-10">
-                                <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border-2 border-[#D4AF37] flex items-center justify-center text-xl shadow-lg shadow-[#D4AF37]/20 z-10">
-                                    {event.icon}
+                                {/* Connector (Center) */}
+                                <div className="hidden md:flex flex-col items-center justify-center relative w-12 z-10">
+                                    <div className="w-12 h-12 rounded-full bg-[#1A1A1A] border-2 border-[#D4AF37] flex items-center justify-center text-xl shadow-lg shadow-[#D4AF37]/20 z-10">
+                                        {event.icon}
+                                    </div>
+                                </div>
+
+                                {/* Text Content */}
+                                <div className={`w-full md:w-1/2 text-center ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
+
+                                    {!event.image && (
+                                        <span className="inline-block px-4 py-1 border border-[#D4AF37] text-[#D4AF37] font-bold text-lg rounded-full mb-4">
+                                            {event.time}
+                                        </span>
+                                    )}
+
+                                    <h3 className="font-heading text-2xl md:text-3xl text-white mb-2 font-bold">
+                                        {event.title}
+                                    </h3>
+                                    <p className="font-heading text-[#D4AF37] text-lg mb-4 italic">
+                                        {event.subtitle}
+                                    </p>
+                                    <p className="font-body text-white/70 text-sm md:text-base leading-relaxed">
+                                        {event.description}
+                                    </p>
                                 </div>
                             </div>
-
-                            {/* Text Content */}
-                            <div className={`w-full md:w-1/2 text-center ${index % 2 === 0 ? "md:text-left" : "md:text-right"}`}>
-
-                                {!event.image && (
-                                    <span className="inline-block px-4 py-1 border border-[#D4AF37] text-[#D4AF37] font-bold text-lg rounded-full mb-4">
-                                        {event.time}
-                                    </span>
-                                )}
-
-                                <h3 className="font-heading text-2xl md:text-3xl text-white mb-2 font-bold">
-                                    {event.title}
-                                </h3>
-                                <p className="font-heading text-[#D4AF37] text-lg mb-4 italic">
-                                    {event.subtitle}
-                                </p>
-                                <p className="font-body text-white/70 text-sm md:text-base leading-relaxed">
-                                    {event.description}
-                                </p>
-                            </div>
-                        </div>
+                        </ScrollReveal>
                     ))}
                 </div>
             </div>

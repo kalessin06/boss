@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import Spotlight from "./Spotlight";
 
 export default function Hero() {
     return (
@@ -23,21 +25,46 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent"></div>
             </div>
 
+            {/* Spotlight Effect */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
+                <Spotlight size={600} bgClass="bg-[#D4AF37]/20" />
+            </div>
+
             {/* Content */}
             <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-[35vh]">
 
                 {/* New Taglines */}
-                <div className="mb-12 space-y-4">
-                    <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#D4AF37] uppercase tracking-wide drop-shadow-xl animate-fade-in-up">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="mb-12 space-y-4"
+                >
+                    <motion.h2
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+                        className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#D4AF37] uppercase tracking-wide drop-shadow-xl"
+                    >
                         L&apos;événement le plus glamour de France !
-                    </h2>
-                    <p className="font-heading text-xl sm:text-2xl md:text-3xl text-white font-light italic drop-shadow-lg animate-fade-in-up delay-200">
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
+                        className="font-heading text-xl sm:text-2xl md:text-3xl text-white font-light italic drop-shadow-lg"
+                    >
                         Quand le luxe Hollywoodien rencontre l&apos;érotisme de la French Riviera !
-                    </p>
-                </div>
+                    </motion.p>
+                </motion.div>
 
                 {/* Scroll Indicator */}
-                <div className="mb-8 animate-bounce">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1, duration: 1 }}
+                    className="mb-8 animate-bounce"
+                >
                     <span className="text-white/60 text-xs uppercase tracking-widest font-body">Découvrir</span>
                     <div className="mt-2">
                         <svg
@@ -54,12 +81,18 @@ export default function Hero() {
                             />
                         </svg>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* CTA Button */}
-                <Link href="#cta" className="btn-gold text-lg px-10 py-4 inline-block shadow-2xl animate-fade-in-up delay-300">
-                    Réserver Ma Place
-                </Link>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.6, duration: 0.5 }}
+                >
+                    <Link href="#cta" className="btn-gold text-lg px-10 py-4 inline-block shadow-2xl hover:scale-105 transition-transform duration-300">
+                        Réserver Ma Place
+                    </Link>
+                </motion.div>
             </div>
 
             {/* Decorative Elements */}
